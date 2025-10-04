@@ -1,4 +1,4 @@
-# Blu VC Log
+# Vencord Voice Channel Logging Plugin
 
 A Vencord user plugin that logs voice channel joins and leaves to the associated text channel.
 
