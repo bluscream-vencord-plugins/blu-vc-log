@@ -134,3 +134,7 @@ The plugin listens to Discord's `VOICE_STATE_UPDATES` flux events to detect when
 ## AI Disclaimer
 
 This plugin was developed with the assistance of AI (Claude Sonnet 4). The AI helped with code structure, implementation details, and debugging. While the code has been reviewed and tested, please use it at your own discretion. If you encounter any issues, please report them through the GitHub issues page.
+
+## License
+
+GPL-3.0-or-later
