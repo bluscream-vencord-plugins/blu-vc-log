@@ -51,8 +51,8 @@ const settings = definePluginSettings({
     },
     onlyMonitorOwnChannel: {
         type: OptionType.BOOLEAN,
-        description: "Only monitor your current voice channel",
-        default: false,
+        description: "Only monitor your current voice channel or the channel you are viewing",
+        default: true,
         restartNeeded: false,
     },
     triggerOnOwnEvents: {
@@ -65,6 +65,13 @@ const settings = definePluginSettings({
         type: OptionType.BOOLEAN,
         description: "Enable console logging for voice state updates",
         default: false,
+        restartNeeded: false,
+    },
+    whitelistedGuilds: {
+        type: OptionType.STRING,
+        description: "List of guild IDs to always monitor (even if Only Monitor Own Channel is on) - Newline separated",
+        default: "",
+        multiline: true,
         restartNeeded: false,
     },
 
@@ -377,11 +384,11 @@ function findAssociatedTextChannel(voiceChannelId: string): string | null {
 
     // Fallback: try to find a text channel with the same name
     const guildChannels = GuildChannelStore.getChannels(voiceChannel.guild_id);
-    if (!guildChannels || !guildChannels.TEXT) {
+    if (!guildChannels || !(guildChannels as any).SELECTABLE) {
         return voiceChannelId; // Still try the voice channel ID as fallback
     }
 
-    const associatedTextChannel = guildChannels.TEXT.find(
+    const associatedTextChannel = (guildChannels as any).SELECTABLE.find(
         ({ channel }) =>
             channel.name === voiceChannel.name &&
             channel.parent_id === voiceChannel.parent_id
@@ -517,13 +524,20 @@ async function detectVoiceStateChanges(
     const myCurrentVoiceChannelId = SelectedChannelStore.getVoiceChannelId();
     const currentChannelId = voiceState.channelId || voiceState.oldChannelId;
 
-    // If only monitoring own channel, skip events not related to my channel
+    // If only monitoring own channel, skip events not related to my channel or selected channel
     if (settings.store.onlyMonitorOwnChannel) {
-        if (
-            !myCurrentVoiceChannelId ||
-            currentChannelId !== myCurrentVoiceChannelId
-        ) {
-            return;
+        const voiceChannel = currentChannelId ? ChannelStore.getChannel(currentChannelId) : null;
+        const guildId = voiceChannel?.guild_id;
+        const whitelistedGuilds = settings.store.whitelistedGuilds.split(/\r?\n/).map(id => id.trim()).filter(id => id.length > 0);
+
+        if (!guildId || !whitelistedGuilds.includes(guildId)) {
+            const selectedChannelId = SelectedChannelStore.getChannelId();
+            if (
+                currentChannelId !== myCurrentVoiceChannelId &&
+                currentChannelId !== selectedChannelId
+            ) {
+                return;
+            }
         }
     }
 
