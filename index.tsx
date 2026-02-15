@@ -1,11 +1,11 @@
-// Authors: Bluscream, Cursor.AI
-// Created at 2025-10-05 18:00:43
-/*
- * Vencord, a Discord client mod
- * Copyright (c) 2024 Vendicated and contributors
- * SPDX-License-Identifier: GPL-3.0-or-later
- */
+export const pluginInfo = {
+    id: "vcLog",
+    name: "Voice Channel Log",
+    description: "Logs voice channel joins/leaves to the associated text chat",
+    color: "#7289da"
+};
 
+// Created at 2025-10-05 18:00:43
 import { sendBotMessage } from "@api/Commands";
 import { definePluginSettings } from "@api/Settings";
 import { Devs } from "@utils/constants";
@@ -427,9 +427,7 @@ const previousVoiceStates = new Map<string, PreviousVoiceState>();
 
 import { Logger } from "@utils/Logger";
 
-const pluginId = "vcLog";
-const pluginName = "Voice Channel Log";
-const logger = new Logger(pluginName, "#7289da");
+const logger = new Logger(pluginInfo.name, pluginInfo.color);
 
 // Console logging function
 function logToConsole(message: string, data?: any) {
@@ -825,7 +823,7 @@ async function handleVoiceStateUpdate(voiceStates: VoiceStateChangeEvent[]) {
 }
 
 export default definePlugin({
-    name: pluginName,
+    name: "Voice Channel Log",
     description: "Logs voice channel joins/leaves to the associated text chat",
     authors: [
         { name: "Bluscream", id: 467777925790564352n },
