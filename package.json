@@ -1,7 +1,7 @@
 {
-    "name":  "blu-vc-log",
+    "name":  "vcLog",
     "version":  "1.0.0",
-    "description":  "Logs voice channel joins/leaves to the associated text chat",
+    "description":  "Voice Channel Log",
     "main":  "index.tsx",
     "author":  {
                    "name":  "Bluscream",

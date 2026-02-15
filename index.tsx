@@ -19,6 +19,7 @@ import {
     UserStore,
     VoiceStateStore,
 } from "@webpack/common";
+import { isTextChannel } from "./utils/channels";
 
 interface VoiceStateChangeEvent {
     userId: string;
@@ -377,7 +378,7 @@ function findAssociatedTextChannel(voiceChannelId: string): string | null {
     // In Discord, voice channels often have the same ID as their associated text channel
     // Try using the voice channel ID directly as the text channel ID
     const textChannel = ChannelStore.getChannel(voiceChannelId);
-    if (textChannel && textChannel.type === 0) {
+    if (isTextChannel(textChannel)) {
         // Type 0 is GUILD_TEXT
         return voiceChannelId;
     }
@@ -424,10 +425,16 @@ function getTypeAndChannelId(
 let myLastVoiceChannelId: string | undefined;
 const previousVoiceStates = new Map<string, PreviousVoiceState>();
 
+import { Logger } from "@utils/Logger";
+
+const pluginId = "vcLog";
+const pluginName = "Voice Channel Log";
+const logger = new Logger(pluginName, "#7289da");
+
 // Console logging function
 function logToConsole(message: string, data?: any) {
     if (settings.store.consoleLogging) {
-        console.log(`[blu-voicelog] ${message}`, data || "");
+        logger.log(`${message}`, data || "");
     }
 }
 
@@ -818,13 +825,11 @@ async function handleVoiceStateUpdate(voiceStates: VoiceStateChangeEvent[]) {
 }
 
 export default definePlugin({
-    name: "VoiceChannelLogs",
+    name: pluginName,
     description: "Logs voice channel joins/leaves to the associated text chat",
     authors: [
-        { name: "Bluscream", id: 0n },
-        { name: "Cursor.AI", id: 0n },
-    ],
-
+        { name: "Bluscream", id: 467777925790564352n },
+        { name: "Cursor.AI", id: 0n }],
     settings,
 
     start() {
