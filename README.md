@@ -123,18 +123,32 @@ The plugin listens to Discord's `VOICE_STATE_UPDATES` flux events to detect when
 3. Formats the message using your custom templates
 4. Sends the message as Clyde to the text channel
 
-## Installation
 
-1. Copy the `blu-vc-log` folder to your Vencord `src/userplugins` directory
-2. Rebuild Vencord: `npm run build`
-3. Restart Discord
-4. Enable the plugin in Vencord settings
-5. Configure your preferred message formats
 
-## AI Disclaimer
 
-This plugin was developed with assistance from **Cursor.AI** (Cursor's AI coding assistant). The AI was used to help with code generation, debugging, documentation, and implementation. While AI assistance was utilized, all code and features were reviewed and tested to ensure quality and functionality.
 
-## License
 
-Unlicense
+
+## Installation 
+
+### 🪄 Installation Wizard
+The easiest way to install this plugin is to use the **[Plugin Installer Generator](https://bluscream-vencord-plugins.github.io)**. 
+Simply select this plugin from the list and download your custom install script.
+
+### 💻 Manual Installation (PowerShell)
+Alternatively, you can run this snippet in your Equicord/Vencord source directory:
+```powershell
+$ErrorActionPreference = "Stop"
+winget install -e --id Git.Git
+winget install -e --id OpenJS.NodeJS
+npm install -g pnpm
+git clone https://github.com/Equicord/Equicord Equicord
+New-Item -ItemType Directory -Force -Path "Equicord\src\userplugins" | Out-Null
+git clone https://github.com/bluscream-vencord-plugins/blu-vc-log.git -b "main" "Equicord\src\userplugins\blu-vc-log"
+cd "Equicord"
+npm install -g pnpm
+pnpm install --frozen-lockfile
+pnpm build
+pnpm buildWeb
+pnpm inject
+```
