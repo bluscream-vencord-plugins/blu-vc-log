@@ -1,17 +1,17 @@
 {
-    "name":  "vcLog",
+    "name": "voiceChannelLog",
     "version":  "1.0.0",
-    "description":  "Voice Channel Log",
+    "description": "Logs voice channel joins/leaves to the associated text chat",
     "main":  "index.tsx",
     "author":  {
                    "name":  "Bluscream",
                    "url":  "https://github.com/Bluscream"
                },
     "license":  "GPL-3.0-or-later",
-    "repository":  {
-                       "type":  "git",
-                       "url":  "https://github.com/bluscream-vencord-plugins/blu-vc-log.git"
-                   },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/bluscream-vencord-plugins/voiceChannelLog.git"
+    },
     "vencord":  {
                     "plugin":  true,
                     "userPlugin":  true
