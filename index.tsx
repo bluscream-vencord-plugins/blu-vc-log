@@ -14,7 +14,7 @@ import { VoiceStateChangeEvent } from "./types/VoiceStateChangeEvent";
 export const pluginInfo = {
     id: "voiceChannelLog",
     name: "Voice Channel Log",
-    description: "Logs voice channel joins/leaves to the associated text chat",
+    description: "Logs voice channel joins and leaves to the associated text channel",
     color: "#7289da",
     authors: [{ name: "Bluscream", id: 467777925790564352n }, { name: "Cursor.AI", id: 0n }],
 };

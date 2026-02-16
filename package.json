@@ -1,7 +1,7 @@
 {
     "name": "voiceChannelLog",
     "version":  "1.0.0",
-    "description": "Logs voice channel joins/leaves to the associated text chat",
+    "description": "Logs voice channel joins and leaves to the associated text channel",
     "main":  "index.tsx",
     "author":  {
                    "name":  "Bluscream",
