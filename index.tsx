@@ -13,7 +13,6 @@ import { VoiceStateChangeEvent } from "./types/VoiceStateChangeEvent";
 // region PluginInfo
 export const pluginInfo = {
     id: "voiceChannelLog",
-    name: "VoiceChannelLog",
     description: "Logs voice channel joins/leaves to the associated text chat",
     color: "#7289da",
     authors: [{ name: "Bluscream", id: 467777925790564352n }, { name: "Cursor.AI", id: 0n }],
@@ -115,7 +114,7 @@ async function sendFormattedMessage(
 // region Variables
 let myLastVoiceChannelId: string | undefined;
 const previousVoiceStates = new Map<string, PreviousVoiceState>();
-const logger = new Logger(pluginInfo.name, pluginInfo.color);
+const logger = new Logger(pluginInfo.id, pluginInfo.color);
 // endregion Variables
 // region Main
 // Function to detect and handle voice state changes
@@ -439,7 +438,7 @@ async function handleVoiceStateUpdate(voiceStates: VoiceStateChangeEvent[]) {
 // endregion Main
 // region Definition
 export default definePlugin({
-    name: pluginInfo.name,
+    name: pluginInfo.id,
     description: pluginInfo.description,
     authors: pluginInfo.authors,
     settings,
